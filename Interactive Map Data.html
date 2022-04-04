@@ -37,7 +37,7 @@
                 zoom: 13, // Zoom level
                 container: "viewDiv" // Div element
                 });
-            const routeUrl = "https://route-api.arcgis.com/arcgis/rest/services/World/Route/NAServer/Route_World";
+            const routeUrl = "https://gis.m.asu.edu/server/rest/services/Campus/ASUCampusRoute/NAServer/Route";
             view.on("click", function(event){
                 if (view.graphics.length === 0) {
                     addGraphic("origin", event.mapPoint);
@@ -88,7 +88,11 @@
                 features.forEach(function(result,i){
                     const direction = document.createElement("li");
                     direction.innerHTML = result.attributes.text + " (" + result.attributes.length.toFixed(2) + " miles)";
-                    directions.appendChild(direction);
+                    directions.appendChild(direction); // this is where audio feature could be added?
+                    /*<audio controls autoplay>
+                        <source src= type="audio/mpeg">
+                    </audio>
+                    */
                 });
                 view.ui.empty("top-right");
                 view.ui.add(directions, "top-right");
