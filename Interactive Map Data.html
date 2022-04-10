@@ -24,8 +24,9 @@
             "esri/Graphic",
             "esri/rest/route",
             "esri/rest/support/RouteParameters",
-            "esri/rest/support/FeatureSet"], 
-        function (esriConfig,Map, MapView,Graphic, route, RouteParameters, FeatureSet) {
+            "esri/rest/support/FeatureSet", 
+            "esri/widgets/Track"], // adds current location
+        function (esriConfig, Map, MapView,Graphic, route, RouteParameters, FeatureSet, Track) {
             esriConfig.apiKey = "AAPKd6e465ca0efd4a49857f375285111e74k-XzqRsHeHxxWePQBqyWwRkgFwxSUSeQl2CMHxG5gWuQXQcZuVWcmrtKq09u0Beh";
 
             const map = new Map({
@@ -37,6 +38,15 @@
                 zoom: 13, // Zoom level
                 container: "viewDiv" // Div element
                 });
+            // Create an instance of the Track widget and add it to the view's UI
+            var track = new Track({
+                view: view
+            });
+            view.ui.add(track, "top-left");
+            // The sample will start tracking your location once the view becomes ready
+            view.when(function () {
+                track.start();
+            });
             const routeUrl = "https://gis.m.asu.edu/server/rest/services/Campus/ASUCampusRoute/NAServer/Route";
             view.on("click", function(event){
                 if (view.graphics.length === 0) {
