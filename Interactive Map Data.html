@@ -16,7 +16,9 @@
     </style>
 
     <link rel="stylesheet" href="https://js.arcgis.com/4.21/esri/themes/light/main.css">
+    
     <script src="https://js.arcgis.com/4.21/"></script>
+    <button onClick= "sayDirections()">Start</button>
     <script>
         require(["esri/config",
             "esri/Map", 
@@ -97,15 +99,31 @@
                 // Show each direction
                 features.forEach(function(result,i){
                     const direction = document.createElement("li");
-                    direction.innerHTML = result.attributes.text + " (" + result.attributes.length.toFixed(2) + " miles)";
+                    direction.innerHTML =  result.attributes.text + ", continue for " + result.attributes.length.toFixed(2) + " miles. ";
                     directions.appendChild(direction); // this is where audio feature could be added?
-                    /*<audio controls autoplay>
-                        <source src= type="audio/mpeg">
-                    </audio>
-                    */
+                   
+                
+                    
+            
+                    
+                
                 });
                 view.ui.empty("top-right");
                 view.ui.add(directions, "top-right");
+
+                //text to speech 
+               
+                var to_speak = new SpeechSynthesisUtterance(directions.innerHTML);
+                window.speechSynthesis.speak(to_speak);
+    
+              
+                                
+             
+
+                
+                
+
+
                 }
 
             })
@@ -118,6 +136,8 @@
       </script>
   </head>
   <body>
+    
+    
     <div id="viewDiv"></div>
   </body>
 </html>
